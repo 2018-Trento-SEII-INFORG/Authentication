@@ -2,7 +2,8 @@
 
 [![Build Status](https://travis-ci.com/jorgeramirez/se2-auth-demo.svg?branch=master)](https://travis-ci.com/jorgeramirez/se2-auth-demo)
 
-A small example that shows how to add authentication to your API.
+A small example that shows how to add authentication to your API using jwt https://jwt.io/.
+Taken from: https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens
 
 ## Run
 
