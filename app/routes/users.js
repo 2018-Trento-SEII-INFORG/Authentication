@@ -16,7 +16,7 @@ usersRoutes.route('/')
 
 	// save the bear and check for errors
 	saved = await user.save()
-	res.json(saved)
+	res.status(201).send(saved)
 })
 
 usersRoutes.route('/:user_id')
