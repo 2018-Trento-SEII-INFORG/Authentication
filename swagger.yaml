@@ -13,7 +13,7 @@ schemes:
 consumes:
 - application/json; charset=utf-8
 produces:
-- application/json
+- application/json; charset=utf-8
 # Global security (applies to all operations):
 security:
   - APIKeyHeader: []
