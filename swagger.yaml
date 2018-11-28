@@ -28,11 +28,11 @@ parameters:
     x-example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjUyamV1NTVjc2pwMTBjbnEwIiwibmFtZSI6Im5pY2siLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNTQzMzk5NzM2LCJleHAiOjE1NDM0ODYxMzZ9.ZaqJ0tjTyDywDLXuBXILQIGphFf-AGRobAIbnKUufl4
 paths:
   /users:
+    #x-summary: Users Collection
     parameters:
         - $ref: '#/parameters/tokenHeaderParam'
-    x-summary: Users Collection
     get:
-      summary: List All Users
+      #summary: List All Users
       responses:
         200:
           description: Successful Response
@@ -44,10 +44,9 @@ paths:
            $ref: "#/responses/UnauthorizedError"
     post:
       description: >-
-        You may create your own question using this action. It takes a JSON
-        object containing a question and a collection of answers in the
-        form of choices.
-      summary: Create a New Users
+        You may create your own user using this action.
+        It takes a JSON object containing a user.
+      #summary: Create a New Users
       parameters:
         - name: body
           in: body
@@ -60,6 +59,7 @@ paths:
           schema:
             $ref: '#/definitions/User'
   /users/{id}:
+    #x-summary: Single User
     parameters:
         - $ref: '#/parameters/tokenHeaderParam'
         - name: id
@@ -68,9 +68,8 @@ paths:
           required: true
           type: string
           x-example: '1234'
-    x-summary: Single User
     get:
-      summary: Get single user
+      #summary: Get single user
       responses:
         200:
           description: Successful Response
@@ -82,15 +81,22 @@ paths:
 
 definitions:
   User:
-    allOf:
-      - $ref: '#/definitions/NewUser'
-      - required:
-        - id
-        - name
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    required:
+      - id
+      - name
     example:
       id: 123
       name: Luca
   NewUser:
+    type: object
     properties:
       id:
         type: string
