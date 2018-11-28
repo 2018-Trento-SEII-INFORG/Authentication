@@ -21,10 +21,10 @@ $   npm start
 
 Endpoints
 
-- http://localhost:80/ welcome endpoint (public)
-- http://localhost:3000/authentications POST endpoint to authenticate passing name 'nick' and password 'nick' (public)
-- http://localhost:3000/api/v1/ apis (public)
-- http://localhost:3000/api/v1/users endpoint about the users (protected)
+- http://localhost/ welcome endpoint (public)
+- http://localhost/authentications POST endpoint to authenticate passing name 'nick' and password 'nick' (public)
+- http://localhost/api/v1/ apis (public)
+- http://localhost/api/v1/users endpoint about the users (protected)
 
 To call the protected endpoint you need to pass in the token in the header 'x-access-token' or in the body or as a paremeter 'token'
 
