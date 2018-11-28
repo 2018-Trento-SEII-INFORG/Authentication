@@ -1,0 +1,123 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: "is2-authorization"
+  description: Sample API
+  license:
+    name: MIT
+    url: https://github.com/apiaryio/polls-api/blob/master/LICENSE
+host: is2-authentication-develop.herokuapp.com
+basePath: /api/v1
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+# Global security (applies to all operations):
+security:
+  - APIKeyHeader: []
+  - APIKeyQueryParam: []
+parameters:
+  tokenHeaderParam:
+    in: header
+    name: x-access-token
+    type: string
+    required: true
+    description: token
+    x-example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjUyamV1NTVjc2pwMTBjbnEwIiwibmFtZSI6Im5pY2siLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNTQzMzk5NzM2LCJleHAiOjE1NDM0ODYxMzZ9.ZaqJ0tjTyDywDLXuBXILQIGphFf-AGRobAIbnKUufl4
+paths:
+  /users:
+    parameters:
+        - $ref: '#/parameters/tokenHeaderParam'
+    x-summary: Users Collection
+    get:
+      summary: List All Users
+      responses:
+        200:
+          description: Successful Response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+        401:
+           $ref: "#/responses/UnauthorizedError"
+    post:
+      description: >-
+        You may create your own question using this action. It takes a JSON
+        object containing a question and a collection of answers in the
+        form of choices.
+      summary: Create a New Users
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/NewUser'
+      responses:
+        201:
+          description: ''
+          schema:
+            $ref: '#/definitions/User'
+  /users/{id}:
+    parameters:
+        - $ref: '#/parameters/tokenHeaderParam'
+        - name: id
+          in: path
+          description: ID of the user to fetch
+          required: true
+          type: string
+          x-example: '1234'
+    x-summary: Single User
+    get:
+      summary: Get single user
+      responses:
+        200:
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/User'
+        401:
+           $ref: "#/responses/UnauthorizedError"
+
+
+definitions:
+  User:
+    allOf:
+      - $ref: '#/definitions/NewUser'
+      - required:
+        - id
+        - name
+    example:
+      id: 123
+      name: Luca
+  NewUser:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    required:
+      - name
+      - password
+    example:
+      name: Marco
+      password: Marco
+responses:
+  UnauthorizedError:
+    description: API key is missing or invalid
+    headers:
+      WWW_Authenticate:
+        type: string
+securityDefinitions:
+   # X-API-Key: abcdef12345
+   APIKeyHeader:
+     type: apiKey
+     in: header
+     name: x-access-token
+   # /path?api_key=abcdef12345
+   APIKeyQueryParam:
+     type: apiKey
+     in: query
+     name: token
