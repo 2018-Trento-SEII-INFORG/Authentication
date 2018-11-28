@@ -5,6 +5,8 @@
 A small example that shows how to add authentication to your API using jwt https://jwt.io/.
 Taken from: https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens
 
+Deployed at https://is2-authentication-develop.herokuapp.com
+
 ## Run
 
 Clone the repo and install the dependencies by doing
