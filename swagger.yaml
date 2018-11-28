@@ -11,7 +11,7 @@ basePath: /api/v1
 schemes:
 - http
 consumes:
-- application/json
+- application/json; charset=utf-8
 produces:
 - application/json
 # Global security (applies to all operations):
