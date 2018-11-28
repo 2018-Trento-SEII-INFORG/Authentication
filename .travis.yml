@@ -7,3 +7,7 @@ deploy:
     secure: $HEROKU_KEY
   app:
     develop: is2-authentication-develop
+install:
+  - "npm install --no-optional"
+before_script:
+  - "npm info dredd version"
