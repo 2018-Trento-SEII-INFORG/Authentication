@@ -29,8 +29,9 @@ usersRoutes.route('/:user_id')
 })
 .delete(function (req, res) {
 	if( User.remove({ id: req.params.user_id }) )
-		res.json({ message: 'Successfully deleted' });
-	res.json({ message: 'invalid id' });
+		res.status(204).send({ message: 'Successfully deleted' });
+	else
+		res.status(404).send({ message: 'invalid id' });
 })
 .put(async function (req, res) {
 	let user = await User.findOrCreate( { id: req.params.user_id } );
@@ -38,6 +39,7 @@ usersRoutes.route('/:user_id')
 	user.name = req.body.name || user.name;
 	user.password = req.body.password || user.password;
 	user.admin = req.body.admin;
+	res.status(200).send(user);
 });
 
 

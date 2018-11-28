@@ -15,6 +15,7 @@ const User   = require('./app/models/user');
 // =================================================================
 // create a sample user
 var nick = User.findOrCreate({
+  id: '1234',
   name: 'nick', 
   password: 'nick',
   admin: true 
