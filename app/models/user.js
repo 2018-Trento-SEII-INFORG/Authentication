@@ -46,39 +46,33 @@ class User {
 
 	static async find(criterias) {
 		//to be implemented filters users by criterias e.g. {name:pippo, id:1234}
-		return usersTable;
+		let matchingUsers = usersTable.filter(u => {
+			return criterias.name == undefined ? true : u.name === criterias.name
+			&&     criterias.id == undefined ? true : u.id === criterias.id
+		});
+		return matchingUsers;
 	}
 
-	static findByName(name) {
-		let matchingUsers = usersTable.filter(u => u.name === name);
-		
-		// if no matches
-		if (matchingUsers.length === 0) {
-			return null;
-		}
-
-		// if at least one match, take the first one at index 0
-		return matchingUsers[0];
+	static async findOne(criterias) {
+		let users = await this.find(criterias)
+		let firstUser = users.length==0 ? null : users[0]
+		return firstUser;
 	}
 
-	static findOrCreate(user) {
-		let matchingUsers = [];
-
-		if (user.id == undefined) {
-			user.id = uniqid();
-		}
-		else {
-			matchingUsers = usersTable.filter(u => u.id === user.id);
-		}
-
-		// if no matches
-		if (matchingUsers.length === 0) {
-			usersTable.push(user);
-			return user;
-		}
-
-		// if at least one match, take the first one at index 0
-		return matchingUsers[0];
+	// this returns a Promise as much as an async function
+	static findOrCreate(criterias) {
+		return this.findOne(criterias)
+		.then( (user) => {
+			if (user)
+				return user
+			else {
+				if (criterias.id == undefined) {
+					criterias.id = uniqid();
+				}
+				usersTable.push(criterias);
+				return criterias;
+			}
+		})
 	}
 
 };

@@ -20,13 +20,20 @@ usersRoutes.route('/')
 })
 
 usersRoutes.route('/:user_id')
+.get(async function(req, res) {
+	let user_id = req.params.user_id
+	if ( user_id == 'me' )
+		user_id = req.user.id
+	let user = await User.findOne( { id: user_id } );
+	res.json(user);
+})
 .delete(function (req, res) {
 	if( User.remove({ id: req.params.user_id }) )
 		res.json({ message: 'Successfully deleted' });
 	res.json({ message: 'invalid id' });
 })
-.put(function (req, res) {
-	let user = User.findOrCreate( { id: req.params.user_id } );
+.put(async function (req, res) {
+	let user = await User.findOrCreate( { id: req.params.user_id } );
 	// update info
 	user.name = req.body.name || user.name;
 	user.password = req.body.password || user.password;

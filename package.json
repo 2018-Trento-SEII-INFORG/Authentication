@@ -6,7 +6,7 @@
     "start": "node -r dotenv/config server.js",
     "test": "jest"
   },
-  "author": "Jorge Ramírez",
+  "author": "Marco",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.3",

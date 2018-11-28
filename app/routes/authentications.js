@@ -5,10 +5,10 @@ const config = require('../../config'); // get our config file
 
 const authenticationsRoutes = express.Router(); 
 
-authenticationsRoutes.post('/', function(req, res) {
+authenticationsRoutes.post('/', async function(req, res) {
 
 	// find the user
-	var user = User.findByName(req.body.name)
+	var user = await User.findOne( { name: req.body.name } )
 
 	if (!user) {
 		// user not found
@@ -26,6 +26,7 @@ authenticationsRoutes.post('/', function(req, res) {
 			// if user is found and password is right
 			// create a token
 			var payload = {
+				id: user.id,
 				name: user.name,
 				admin: user.admin
 			}
